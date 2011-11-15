@@ -31,7 +31,8 @@ class BuiltIn(Token):
     # todo: check the Python language spec
     pattern = r"\+|\*|-|/"
 
-def lex(string):
+    
+def _tokenise(string):
     tokens = []
 
     while string:
@@ -48,3 +49,9 @@ def lex(string):
             raise LexingError('Could not lex remaining: "%s"' % string)
 
     return tokens
+
+
+def lex(string):
+    for (token_type, token) in _tokenise(string):
+        if token_type not in [Whitespace]:
+            yield (token_type, token)
