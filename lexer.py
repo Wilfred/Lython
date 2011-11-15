@@ -31,6 +31,9 @@ class BuiltIn(Token):
     # todo: check the Python language spec
     pattern = r"\+|\*|-|/"
 
+class Comment(Token):
+    pattern = r";.*"
+
     
 def _tokenise(string):
     tokens = []
@@ -53,5 +56,5 @@ def _tokenise(string):
 
 def lex(string):
     for (token_type, token) in _tokenise(string):
-        if token_type not in [Whitespace]:
+        if token_type not in [Whitespace, Comment]:
             yield (token_type, token)
