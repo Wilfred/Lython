@@ -40,12 +40,14 @@ def _compile(s_exp, indent):
 
 def lython_compile(python_string):
     tokens = list(lex(python_string))
-    for s_exp in parse(tokens):
-        print _compile(s_exp, 0)
+
+    s_exps = parse(tokens)
+    compiled_sections = [_compile(s_exp, 0) for s_exp in s_exps]
+    return "\n".join(compiled_sections)
 
 class CouldNotCompile(Exception): pass
 
 if __name__ == '__main__':
     program = "(if True (= x 1))"
     print "Compiling %r" % program
-    lython_compile(program)
+    print lython_compile(program)
