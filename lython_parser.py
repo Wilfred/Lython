@@ -2,7 +2,7 @@ import lexer
 
 class ParsingError(Exception): pass
 
-def parse(tokens, top_level=False):
+def parse(tokens, top_level=True):
     _list = []
     saw_closing_paren = False
 
@@ -10,7 +10,7 @@ def parse(tokens, top_level=False):
         token_class, token = tokens.pop(0)
 
         if token_class == lexer.OpenParen:
-            _list.append(parse(tokens))
+            _list.append(parse(tokens, top_level=False))
         elif token_class == lexer.CloseParen:
             if top_level:
                 raise ParsingError('Closing paren does not have matching open paren.')
