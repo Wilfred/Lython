@@ -47,6 +47,12 @@ def compile_return(s_exp, indent):
     python_string = "return %s" % return_body
     return emit_python(python_string, indent)
 
+def compile_add(s_exp, indent):
+    arguments = [compile_sexp(argument, 0) for argument in s_exp[1:]]
+
+    python_string = " + ".join(arguments)
+    return emit_python(python_string, indent)
+
 def compile_sexp(s_exp, indent):
     if isinstance(s_exp, tuple):
         return compile_symbol(s_exp, indent)
@@ -61,6 +67,8 @@ def compile_sexp(s_exp, indent):
         return compile_def(s_exp, indent)
     elif symbol == 'return':
         return compile_return(s_exp, indent)
+    elif symbol == '+':
+        return compile_add(s_exp, indent)
     else:
         raise CouldNotCompile(s_exp)
 

@@ -29,6 +29,11 @@ class CompileTests(TestCase):
         compiled_program = "return 2"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_add(self):
+        program = "(+ 2 3 4)"
+        compiled_program = "2 + 3 + 4"
+        self.assertEqual(lython_compile(program), compiled_program)
+
 
 if __name__ == "__main__":
     unittest.main()
