@@ -41,6 +41,12 @@ def compile_def(s_exp, indent):
     
     return emit_python(python_string, indent)
 
+def compile_return(s_exp, indent):
+    return_body = compile_sexp(s_exp[1], 0)
+
+    python_string = "return %s" % return_body
+    return emit_python(python_string, indent)
+
 def compile_sexp(s_exp, indent):
     if isinstance(s_exp, tuple):
         return compile_symbol(s_exp, indent)
@@ -53,6 +59,8 @@ def compile_sexp(s_exp, indent):
         return compile_if(s_exp, indent)
     elif symbol == 'def':
         return compile_def(s_exp, indent)
+    elif symbol == 'return':
+        return compile_return(s_exp, indent)
     else:
         raise CouldNotCompile(s_exp)
 
@@ -73,6 +81,6 @@ def lython_compile(python_string):
 class CouldNotCompile(Exception): pass
 
 if __name__ == '__main__':
-    program = "(if True (= x 1))"
+    program = "(return 1)"
     print "Compiling %r" % program
     print lython_compile(program)
