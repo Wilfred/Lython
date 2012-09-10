@@ -28,6 +28,19 @@ def compile_if(s_exp, indent):
 
     return emit_python(python_string, indent)
 
+def compile_def(s_exp, indent):
+    symbol_type, function_name = s_exp[1]
+    arguments = s_exp[2]
+    argument_symbols = [symbol for (argument_type, symbol) in arguments]
+
+    # TODO: multi statement functions
+    function_body = compile_sexp(s_exp[3], indent + 1)
+
+    python_string = "def %s(%s):\n" % (function_name, ", ".join(argument_symbols))
+    python_string += function_body
+    
+    return emit_python(python_string, indent)
+
 def compile_sexp(s_exp, indent):
     if isinstance(s_exp, tuple):
         return compile_symbol(s_exp, indent)
@@ -38,6 +51,8 @@ def compile_sexp(s_exp, indent):
         return compile_assignment(s_exp, indent)
     elif symbol == 'if':
         return compile_if(s_exp, indent)
+    elif symbol == 'def':
+        return compile_def(s_exp, indent)
     else:
         raise CouldNotCompile(s_exp)
 

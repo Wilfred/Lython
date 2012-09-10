@@ -19,6 +19,11 @@ class CompileTests(TestCase):
         compiled_program = "if True:\n    1"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_function(self):
+        program = "(def foo (x y) 1)"
+        compiled_program = "def foo(x, y):\n    1"
+        self.assertEqual(lython_compile(program), compiled_program)
+
 
 if __name__ == "__main__":
     unittest.main()
