@@ -1,5 +1,5 @@
 from lython_parser import parse
-from lexer import lex
+from lython_lexer import lex
 
 TAB = '    '
 
