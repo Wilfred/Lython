@@ -14,6 +14,11 @@ class CompileTests(TestCase):
         compiled_program = "if True:\n    x = 1"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_symbol(self):
+        program = "(if True 1)"
+        compiled_program = "if True:\n    1"
+        self.assertEqual(lython_compile(program), compiled_program)
+
 
 if __name__ == "__main__":
     unittest.main()

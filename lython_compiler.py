@@ -20,7 +20,7 @@ def compile_if(s_exp, indent):
     # todo: compile condition too
     symbol_type, condition = s_exp[1]
 
-    if_body =_compile(s_exp[2], indent + 1)
+    if_body = compile_sexp(s_exp[2], indent + 1)
 
     # question: should we support one line if statements?
     python_string = "if %s:\n" % condition
@@ -28,7 +28,10 @@ def compile_if(s_exp, indent):
 
     return emit_python(python_string, indent)
 
-def _compile(s_exp, indent):
+def compile_sexp(s_exp, indent):
+    if isinstance(s_exp, tuple):
+        return compile_symbol(s_exp, indent)
+    
     symbol_type, symbol = s_exp[0]
 
     if symbol == '=':
@@ -38,11 +41,18 @@ def _compile(s_exp, indent):
     else:
         raise CouldNotCompile(s_exp)
 
+def compile_symbol(symbol_tuple, indent):
+    # this is value, not a statement, so indentation is usually
+    # irrelevant as we're inserted on a line
+    symbol_type, symbol = symbol_tuple
+
+    return emit_python(symbol, indent)
+
 def lython_compile(python_string):
     tokens = list(lex(python_string))
 
     s_exps = parse(tokens)
-    compiled_sections = [_compile(s_exp, 0) for s_exp in s_exps]
+    compiled_sections = [compile_sexp(s_exp, 0) for s_exp in s_exps]
     return "\n".join(compiled_sections)
 
 class CouldNotCompile(Exception): pass
