@@ -1,3 +1,5 @@
+import sys
+
 from lython_parser import parse
 from lython_lexer import lex
 
@@ -97,6 +99,10 @@ def lython_compile(python_string):
 class CouldNotCompile(Exception): pass
 
 if __name__ == '__main__':
-    program = "(return 1)"
-    print "Compiling %r" % program
+    if len(sys.argv) < 2:
+        print "Usage: python lython_compiler.py <source file name>"
+        sys.exit(1)
+
+    path = sys.argv[1]
+    program = open(path).read()
     print lython_compile(program)
