@@ -44,6 +44,11 @@ class CompileTests(TestCase):
         compiled_program = "2 * 3 * 4"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_array_access(self):
+        program = "(array_access foo 1)"
+        compiled_program = "foo[1]"
+        self.assertEqual(lython_compile(program), compiled_program)
+
 
 class LexerTests(TestCase):
     def test_comment(self):

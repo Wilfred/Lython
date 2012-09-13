@@ -62,6 +62,15 @@ def compile_multiply(s_exp, indent):
     python_string = " * ".join(arguments)
     return emit_python(python_string, indent)
 
+def compile_array_access(s_exp, indent):
+    symbol_type, variable = s_exp[1]
+    symbol_type, index = s_exp[2]
+
+    # fixme: this assumes we only do array access on variables,
+    # and that indexes are literals
+    python_string = "%s[%s]" % (variable, index)
+    return emit_python(python_string, indent)
+
 def compile_sexp(s_exp, indent):
     if isinstance(s_exp, tuple):
         return compile_symbol(s_exp, indent)
@@ -80,6 +89,8 @@ def compile_sexp(s_exp, indent):
         return compile_add(s_exp, indent)
     elif symbol == '*':
         return compile_multiply(s_exp, indent)
+    elif symbol == 'array_access':
+        return compile_array_access(s_exp, indent)
     else:
         raise CouldNotCompile(s_exp)
 
