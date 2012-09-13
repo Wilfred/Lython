@@ -24,6 +24,11 @@ class CompileTests(TestCase):
         compiled_program = "def foo(x, y):\n    1"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_function_multi_statements(self):
+        program = "(def foo (x y) 1 2)"
+        compiled_program = "def foo(x, y):\n    1\n    2"
+        self.assertEqual(lython_compile(program), compiled_program)
+
     def test_return(self):
         program = "(return 2)"
         compiled_program = "return 2"

@@ -35,11 +35,12 @@ def compile_def(s_exp, indent):
     arguments = s_exp[2]
     argument_symbols = [symbol for (argument_type, symbol) in arguments]
 
-    # TODO: multi statement functions
-    function_body = compile_sexp(s_exp[3], indent + 1)
+    python_string = "def %s(%s):" % (function_name, ", ".join(argument_symbols))
 
-    python_string = "def %s(%s):\n" % (function_name, ", ".join(argument_symbols))
-    python_string += function_body
+    # the remaining list elements are statements in the function
+    for statement in s_exp[3:]:
+        function_body = compile_sexp(statement, indent + 1)
+        python_string += '\n' + function_body
     
     return emit_python(python_string, indent)
 
