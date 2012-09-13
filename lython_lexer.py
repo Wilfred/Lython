@@ -43,7 +43,9 @@ def _tokenise(string):
 
             match = re.match(token_class.pattern, string)
             if match:
-                tokens.append((token_class, match.group(0)))
+                if token_class != Comment:
+                    tokens.append((token_class, match.group(0)))
+                    
                 string = string[match.end():]
                 break
         else:

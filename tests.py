@@ -40,5 +40,13 @@ class CompileTests(TestCase):
         self.assertEqual(lython_compile(program), compiled_program)
 
 
+class LexerTests(TestCase):
+    def test_comment(self):
+        program = "; foo"
+        compiled_program = ""
+        self.assertEqual(lython_compile(program), compiled_program)
+        
+
+
 if __name__ == "__main__":
     unittest.main()
