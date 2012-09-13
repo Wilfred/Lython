@@ -9,6 +9,11 @@ class CompileTests(TestCase):
         compiled_program = "x = 3"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_assignment_nested(self):
+        program = "(= x (+ 1 1))"
+        compiled_program = "x = 1 + 1"
+        self.assertEqual(lython_compile(program), compiled_program)
+
     def test_if(self):
         program = "(if True (= x 1))"
         compiled_program = "if True:\n    x = 1"

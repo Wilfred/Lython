@@ -10,8 +10,7 @@ def emit_python(python_string, indent):
 
 def compile_assignment(s_exp, indent):
     symbol_type, variable = s_exp[1]
-    # currently only support assignment of atoms
-    symbol_type, value = s_exp[2]
+    value = compile_sexp(s_exp[2], 0)
 
     python_string = "%s = %s" % (variable, value)
 
