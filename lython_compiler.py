@@ -1,7 +1,7 @@
 import sys
 
 from lython_parser import parse
-from lython_lexer import lex
+from lython_lexer import lex, Variable
 
 TAB = '    '
 
@@ -69,6 +69,16 @@ def compile_array_access(s_exp, indent):
     python_string = "%s[%s]" % (array_value, index)
     return emit_python(python_string, indent)
 
+def compile_function_call(s_exp, indent):
+    function_value = compile_sexp(s_exp[0], 0)
+
+    arguments = []
+    for raw_argument in s_exp[1:]:
+        arguments.append(compile_sexp(raw_argument, 0))
+
+    python_string = "%s(%s)" % (function_value, ", ".join(arguments))
+    return emit_python(python_string, indent)
+
 def compile_sexp(s_exp, indent):
     if isinstance(s_exp, tuple):
         return compile_symbol(s_exp, indent)
@@ -90,7 +100,10 @@ def compile_sexp(s_exp, indent):
     elif symbol == 'array_access':
         return compile_array_access(s_exp, indent)
     else:
-        raise CouldNotCompile(s_exp)
+        if symbol_type == Variable:
+            return compile_function_call(s_exp, indent)
+        
+        raise CouldNotCompile(s_exp[0])
 
 def compile_symbol(symbol_tuple, indent):
     # this is value, not a statement, so indentation is usually

@@ -64,6 +64,11 @@ class CompileTests(TestCase):
         compiled_program = "foo[1][1]"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_function_call(self):
+        program = "(foo 1 (+ 1 1))"
+        compiled_program = "foo(1, 1 + 1)"
+        self.assertEqual(lython_compile(program), compiled_program)
+
 
 class LexerTests(TestCase):
     def test_comment(self):
