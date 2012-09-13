@@ -62,12 +62,11 @@ def compile_multiply(s_exp, indent):
     return emit_python(python_string, indent)
 
 def compile_array_access(s_exp, indent):
-    symbol_type, variable = s_exp[1]
-    symbol_type, index = s_exp[2]
+    array_value = compile_sexp(s_exp[1], 0)
+    index = compile_sexp(s_exp[2], 0)
 
-    # fixme: this assumes we only do array access on variables,
-    # and that indexes are literals
-    python_string = "%s[%s]" % (variable, index)
+    # fixme: this assumes we only do array access on variables
+    python_string = "%s[%s]" % (array_value, index)
     return emit_python(python_string, indent)
 
 def compile_sexp(s_exp, indent):

@@ -54,6 +54,16 @@ class CompileTests(TestCase):
         compiled_program = "foo[1]"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_array_access_nested(self):
+        program = "(array_access foo (+ 1 1))"
+        compiled_program = "foo[1 + 1]"
+        self.assertEqual(lython_compile(program), compiled_program)
+
+    def test_array_access_nested_array(self):
+        program = "(array_access (array_access foo 1) 1)"
+        compiled_program = "foo[1][1]"
+        self.assertEqual(lython_compile(program), compiled_program)
+
 
 class LexerTests(TestCase):
     def test_comment(self):
