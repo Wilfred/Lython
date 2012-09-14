@@ -9,3 +9,12 @@
 
      (= python_string (% "%s = %s" (make_tuple variable value)))
      (return (emit_python python_string indent)))
+
+(def compile_if (s_exp indent)
+     ;; currently not supporting else
+     (= condition (compile_sexp (array_access s_exp 1) 0))
+     (= if_body (compile_sexp (array_access s_exp 2) (+ indent 1)))
+
+     ;; question: should we support one line if statements?
+     (= python_string (% "if %s\n" condition))
+     )
