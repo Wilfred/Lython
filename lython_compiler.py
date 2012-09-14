@@ -19,7 +19,7 @@ def compile_assignment(s_exp, indent):
 def compile_if(s_exp, indent):
     # currently not supporting else
     # todo: compile condition too
-    symbol_type, condition = s_exp[1]
+    condition = compile_sexp(s_exp[1], 0)
 
     if_body = compile_sexp(s_exp[2], indent + 1)
 
