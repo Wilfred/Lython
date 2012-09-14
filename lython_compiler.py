@@ -113,6 +113,8 @@ def compile_sexp(s_exp, indent):
         return compile_mod(s_exp, indent)
     elif symbol == 'array_access':
         return compile_array_access(s_exp, indent)
+    elif symbol == 'make_tuple':
+        return compile_make_tuple(s_exp, indent)
     else:
         if symbol_type == Variable:
             return compile_function_call(s_exp, indent)
