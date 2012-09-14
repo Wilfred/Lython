@@ -72,7 +72,6 @@ def compile_array_access(s_exp, indent):
     array_value = compile_sexp(s_exp[1], 0)
     index = compile_sexp(s_exp[2], 0)
 
-    # fixme: this assumes we only do array access on variables
     python_string = "%s[%s]" % (array_value, index)
     return emit_python(python_string, indent)
 
