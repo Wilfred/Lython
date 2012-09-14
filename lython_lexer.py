@@ -29,7 +29,7 @@ class CloseParen(Token):
 class BuiltIn(Token):
     # we define a separate token to stop users overwriting these
     # todo: check the Python language spec
-    pattern = r"\+|\*|-|/|="
+    pattern = r"\+|\*|-|/|=|%"
 
 class Comment(Token):
     pattern = r";.*"

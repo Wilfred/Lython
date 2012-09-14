@@ -61,6 +61,13 @@ def compile_multiply(s_exp, indent):
     python_string = " * ".join(arguments)
     return emit_python(python_string, indent)
 
+def compile_mod(s_exp, indent):
+    first_argument = compile_sexp(s_exp[1], 0)
+    second_argument = compile_sexp(s_exp[2], 0)
+
+    python_string = "%s %% %s" % (first_argument, second_argument)
+    return emit_python(python_string, indent)
+
 def compile_array_access(s_exp, indent):
     array_value = compile_sexp(s_exp[1], 0)
     index = compile_sexp(s_exp[2], 0)
@@ -97,6 +104,8 @@ def compile_sexp(s_exp, indent):
         return compile_add(s_exp, indent)
     elif symbol == '*':
         return compile_multiply(s_exp, indent)
+    elif symbol == '%':
+        return compile_mod(s_exp, indent)
     elif symbol == 'array_access':
         return compile_array_access(s_exp, indent)
     else:
