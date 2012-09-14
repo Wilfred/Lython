@@ -76,6 +76,12 @@ def compile_array_access(s_exp, indent):
     python_string = "%s[%s]" % (array_value, index)
     return emit_python(python_string, indent)
 
+def compile_make_tuple(s_exp, indent):
+    arguments = [compile_sexp(argument, 0) for argument in s_exp[1:]]
+
+    python_string = "(%s,)" % ", ".join(arguments)
+    return emit_python(python_string, indent)
+
 def compile_function_call(s_exp, indent):
     function_value = compile_sexp(s_exp[0], 0)
 
