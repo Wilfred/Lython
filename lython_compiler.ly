@@ -17,4 +17,6 @@
 
      ;; question: should we support one line if statements?
      (= python_string (% "if %s\n" condition))
-     )
+     (= python_string (+ python_string if_body))
+
+     (return (emit_python python_string indent)))
