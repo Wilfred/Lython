@@ -20,3 +20,8 @@
      (= python_string (+ python_string if_body))
 
      (return (emit_python python_string indent)))
+
+(def compile_def (s_exp indent)
+     (= (make_tuple symbol_type function_name) (array_access s_exp 1))
+     (= arguments (array_access s_exp 2))
+     )
