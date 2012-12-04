@@ -1,9 +1,8 @@
 Lython is a toy self-hosting Lisp to Python compiler.
 
-Current features:
+See lython_compiler.ly for sample code.
 
-* Assignments
-* If statements
+TODOC: hello world example
 
 Usage
 -----
