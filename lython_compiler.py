@@ -28,6 +28,20 @@ def compile_if(s_exp, indent):
 
     return emit_python(python_string, indent)
 
+def compile_for(s_exp, indent):
+    # not supporting for-else loops, but they're rarely used in Python
+    symbol_type, variable = s_exp[1]
+    iterable = compile_sexp(s_exp[2], 0)
+
+    loop_body = compile_sexp(s_exp[3], indent + 1)
+
+    python_string = "for %s in %s:\n" % (variable, iterable)
+    python_string += loop_body
+
+    return emit_python(python_string, indent)
+    
+    
+
 def compile_def(s_exp, indent):
     symbol_type, function_name = s_exp[1]
     arguments = s_exp[2]
@@ -100,6 +114,8 @@ def compile_sexp(s_exp, indent):
         return compile_assignment(s_exp, indent)
     elif symbol == 'if':
         return compile_if(s_exp, indent)
+    elif symbol == 'for':
+        return compile_for(s_exp, indent)
     elif symbol == 'def':
         return compile_def(s_exp, indent)
     elif symbol == 'return':
