@@ -9,7 +9,7 @@ def emit_python(python_string, indent):
     return TAB * indent + python_string
 
 def compile_assignment(s_exp, indent):
-    symbol_type, variable = s_exp[1]
+    variable = compile_sexp(s_exp[1], 0)
     value = compile_sexp(s_exp[2], 0)
 
     python_string = "%s = %s" % (variable, value)
