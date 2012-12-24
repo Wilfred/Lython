@@ -2,6 +2,8 @@ import unittest
 from unittest import TestCase
 
 from lython_compiler import lython_compile
+from lython_parser import ParsingError
+
 
 class CompileTests(TestCase):
     def test_assignment(self):
@@ -96,6 +98,20 @@ class LexerTests(TestCase):
         compiled_program = ""
         self.assertEqual(lython_compile(program), compiled_program)
         
+
+class ParserTests(TestCase):
+    def test_valid_bracketing(self):
+        program = "(foo)"
+        compiled_program = "foo()"
+        self.assertEqual(lython_compile(program), compiled_program)
+
+    def test_extra_closing(self):
+        with self.assertRaises(ParsingError):
+            lython_compile("(foo))")
+
+    def test_extra_opening(self):
+        with self.assertRaises(ParsingError):
+            lython_compile("(")
 
 
 if __name__ == "__main__":

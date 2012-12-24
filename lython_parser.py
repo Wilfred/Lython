@@ -24,8 +24,3 @@ def parse(tokens, top_level=True):
         raise ParsingError('Open paren was not closed.')
 
     return _list
-
-# test cases:
-# (x
-# (x))
-# )
