@@ -94,6 +94,17 @@ def compile_make_tuple(s_exp, indent):
     python_string = "(%s,)" % ", ".join(arguments)
     return emit_python(python_string, indent)
 
+def compile_attribute_access(s_exp, indent):
+    symbol_type, attribute_name = s_exp[0]
+    target = compile_sexp(s_exp[1], 0)
+    
+    arguments = []
+    for raw_argument in s_exp[2:]:
+        arguments.append(compile_sexp(raw_argument, 0))
+
+    python_string = "(%s)%s(%s)" % (target, attribute_name, ", ".join(arguments))
+    return emit_python(python_string, indent)
+
 def compile_function_call(s_exp, indent):
     function_value = compile_sexp(s_exp[0], 0)
 
@@ -130,6 +141,8 @@ def compile_sexp(s_exp, indent):
         return compile_array_access(s_exp, indent)
     elif symbol == 'make_tuple':
         return compile_make_tuple(s_exp, indent)
+    elif symbol.startswith("."):
+        return compile_attribute_access(s_exp, indent)
     else:
         if symbol_type == Variable:
             return compile_function_call(s_exp, indent)

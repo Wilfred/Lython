@@ -96,6 +96,11 @@ class CompileTests(TestCase):
         compiled_program = "for x in y:\n    z"
         self.assertEqual(lython_compile(program), compiled_program)
 
+    def test_object_attribute(self):
+        program = "(.foo bar x)"
+        compiled_program = "(bar).foo(x)"
+        self.assertEqual(lython_compile(program), compiled_program)
+
 
 class LexerTests(TestCase):
     def test_comment(self):

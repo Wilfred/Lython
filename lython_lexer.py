@@ -11,7 +11,7 @@ class Whitespace(Token):
     pattern = r"\s+"
 
 class Variable(Token):
-    pattern = r"[a-zA-Z_][a-zA-Z_0-9]*"
+    pattern = r"\.?[a-zA-Z_][a-zA-Z_0-9]*"
 
 class Number(Token):
     # yep, no support for floats or literals for other bases
