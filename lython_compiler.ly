@@ -24,4 +24,11 @@
 (def compile_def (s_exp indent)
      (= (make_tuple symbol_type function_name) (array_access s_exp 1))
      (= arguments (array_access s_exp 2))
+
+     (= argument_symbols (list))
+     (for symbol arguments
+          (.push argument_symbols symbol))
+
+     (= python_string (% "def %s(%s):"
+                         (make_tuple function_name (.join ", " argument_symbols))))
      )
