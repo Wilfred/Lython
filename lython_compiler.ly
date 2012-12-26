@@ -62,3 +62,10 @@
      (= python_string (.join " * " arguments))
      (return (emit_python python_string indent)))
 
+(def compile_mod (s_exp indent)
+     (= first_argument (compile_sexp (array_access s_exp 1) 0))
+     (= second_argument (compile_sexp (array_access s_exp 2) 0))
+
+     (= python_string (% "%s %% %s" first_argument second_argument))
+     (return (emit_python python_string indent)))
+
