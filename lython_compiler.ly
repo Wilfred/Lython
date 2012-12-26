@@ -205,4 +205,5 @@
             (.exit sys 1)))
 
       (= path (array_access (getattr sys "arg") 1))
-      (= program (.read (open path)))))
+      (= program (.read (open path)))
+      (print (lython_compile program))))
