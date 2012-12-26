@@ -39,6 +39,18 @@
 
      (return (emit_python python_string indent)))
 
+(def compile_for (s_exp indent)
+     ;; not supporting for-else loops, but they're rarely used in Python
+     (= (make_tuple symbol_type variable) (array_access s_exp 1))
+     (= iterable (compile_sexp (array_access s_exp 2) 0))
+
+     (= loop_body (compile_sexp (array_access s_exp 3) (+ indent 1)))
+
+     (= python_string (% "for %s in %s:\n" (make_tuple variable iterable)))
+     (= python_string (+ python_string loop_body))
+
+     (return (emit_python python_string indent)))
+
 (def compile_def (s_exp indent)
      (= (make_tuple symbol_type function_name) (array_access s_exp 1))
      (= arguments (array_access s_exp 2))
