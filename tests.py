@@ -77,6 +77,11 @@ if True:
         compiled_program = "return 2"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_raise(self):
+        program = "(raise foo)"
+        compiled_program = "raise foo"
+        self.assertCompilesTo(program, compiled_program)
+
     def test_add(self):
         program = "(+ 2 3 4)"
         compiled_program = "2 + 3 + 4"

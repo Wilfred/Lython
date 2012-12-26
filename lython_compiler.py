@@ -73,6 +73,13 @@ def compile_return(s_exp, indent):
     return emit_python(python_string, indent)
 
 
+def compile_raise(s_exp, indent):
+    raise_body = compile_sexp(s_exp[1], 0)
+
+    python_string = "raise %s" % raise_body
+    return emit_python(python_string, indent)
+
+
 def compile_add(s_exp, indent):
     arguments = [compile_sexp(argument, 0) for argument in s_exp[1:]]
 
@@ -175,6 +182,8 @@ def compile_sexp(s_exp, indent):
         return compile_def(s_exp, indent)
     elif symbol == 'return':
         return compile_return(s_exp, indent)
+    elif symbol == 'raise':
+        return compile_raise(s_exp, indent)
     elif symbol == '+':
         return compile_add(s_exp, indent)
     elif symbol == '*':
