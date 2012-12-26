@@ -162,6 +162,11 @@ if True:
         compiled_program = "foo\nbar"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_progn_indented(self):
+        program = "(if True (progn foo bar))"
+        compiled_program = "if True:\n    foo\n    bar"
+        self.assertCompilesTo(program, compiled_program)
+
 
 class LexerTests(LythonTestCase):
     def test_comment(self):
