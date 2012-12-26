@@ -204,6 +204,6 @@
             (print "Usage: python lython_compiler.py <source file name>")
             (.exit sys 1)))
 
-      (= path (array_access (getattr sys "arg") 1))
+      (= path (array_access (getattr sys "argv") 1))
       (= program (.read (open path)))
       (print (lython_compile program))))
