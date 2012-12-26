@@ -75,3 +75,10 @@
 
      (= python_string (% "%s[%s]" array_access index))
      (return (emit_python python_string indent)))
+
+(def compile_make_tuple (s_exp indent)
+     (= arguments (list))
+     (for argument (slice s_exp 1)
+          (.push arguments (% "(%s,)" (.join ", " arguments))))
+
+     (return (emit_python python_string indent)))
