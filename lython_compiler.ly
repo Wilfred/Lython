@@ -121,3 +121,42 @@
 
      (= python_string (% "%s(%s)" (make_tuple function_value (.join ", " arguments))))
      (return emit_python python_string indent))
+
+(def compile_sexp (s_exp indent)
+     (if (isinstance s_exp tuple)
+         (return (compile_symbol s_exp indent)))
+
+     (= (make_tuple symbol_type symbol) (array_access s_exp 0))
+
+     (if (== symbol "=")
+         (return (compile_assignment s_exp indent)))
+     (if (== symbol "==")
+         (return (compile_equality s_exp indent)))
+     (if (== symbol "if")
+         (return (compile_if s_exp indent)))
+     (if (== symbol "for")
+         (return (compile_for s_exp indent)))
+     (if (== symbol "def")
+         (return (compile_def s_exp indent)))
+     (if (== symbol "return")
+         (return (compile_return s_exp indent)))
+     (if (== symbol "+")
+         (return (compile_add s_exp indent)))
+     (if (== symbol "*")
+         (return (compile_multiply s_exp indent)))
+     (if (== symbol "%")
+         (return (compile_mod s_exp indent)))
+     (if (== symbol "array_access")
+         (return (compile_array_access s_exp indent)))
+     (if (== symbol "make_tuple")
+         (return (compile_make_tuple s_exp indent)))
+     (if (== symbol "slice")
+         (return (compile_slice s_exp indent)))
+     (if (.startswith symbol ".")
+         (return (compile_attribute_access s_exp indent)))
+
+     (if (== symbol_type Variable)
+         (return compile_function_call s_exp indent)
+       (raise (CouldNotCompile (array_access s_exp 0)))))
+
+
