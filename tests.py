@@ -31,7 +31,7 @@ class CompileTests(LythonTestCase):
         compiled_program = "if True:\n    x = 1"
         self.assertCompilesTo(program, compiled_program)
 
-    def test_if_nested(self):
+    def test_if_nested_conditional(self):
         program = "(if (foo) 1)"
         compiled_program = "if foo():\n    1"
         self.assertCompilesTo(program, compiled_program)
@@ -39,6 +39,11 @@ class CompileTests(LythonTestCase):
     def test_if_else(self):
         program = "(if True (= x 1) (= x 2))"
         compiled_program = "if True:\n    x = 1\nelse:\n    x = 2"
+        self.assertCompilesTo(program, compiled_program)
+
+    def test_if_nested(self):
+        program = "(if True (if True (foo)))"
+        compiled_program = "if True:\n    if True:\n        foo()"
         self.assertCompilesTo(program, compiled_program)
 
     def test_symbol(self):
