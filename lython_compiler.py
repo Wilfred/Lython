@@ -8,6 +8,7 @@ TAB = '    '
 def emit_python(python_string, indent):
     return TAB * indent + python_string
 
+
 def compile_assignment(s_exp, indent):
     variable = compile_sexp(s_exp[1], 0)
     value = compile_sexp(s_exp[2], 0)
@@ -15,6 +16,7 @@ def compile_assignment(s_exp, indent):
     python_string = "%s = %s" % (variable, value)
 
     return emit_python(python_string, indent)
+
 
 def compile_if(s_exp, indent):
     # currently not supporting else
@@ -28,6 +30,7 @@ def compile_if(s_exp, indent):
 
     return emit_python(python_string, indent)
 
+
 def compile_for(s_exp, indent):
     # not supporting for-else loops, but they're rarely used in Python
     symbol_type, variable = s_exp[1]
@@ -39,7 +42,6 @@ def compile_for(s_exp, indent):
     python_string += loop_body
 
     return emit_python(python_string, indent)
-    
     
 
 def compile_def(s_exp, indent):
@@ -53,8 +55,9 @@ def compile_def(s_exp, indent):
     for statement in s_exp[3:]:
         function_body = compile_sexp(statement, indent + 1)
         python_string += '\n' + function_body
-    
+
     return emit_python(python_string, indent)
+
 
 def compile_return(s_exp, indent):
     return_body = compile_sexp(s_exp[1], 0)
@@ -62,17 +65,20 @@ def compile_return(s_exp, indent):
     python_string = "return %s" % return_body
     return emit_python(python_string, indent)
 
+
 def compile_add(s_exp, indent):
     arguments = [compile_sexp(argument, 0) for argument in s_exp[1:]]
 
     python_string = " + ".join(arguments)
     return emit_python(python_string, indent)
 
+
 def compile_multiply(s_exp, indent):
     arguments = [compile_sexp(argument, 0) for argument in s_exp[1:]]
 
     python_string = " * ".join(arguments)
     return emit_python(python_string, indent)
+
 
 def compile_mod(s_exp, indent):
     first_argument = compile_sexp(s_exp[1], 0)
@@ -81,6 +87,7 @@ def compile_mod(s_exp, indent):
     python_string = "%s %% %s" % (first_argument, second_argument)
     return emit_python(python_string, indent)
 
+
 def compile_array_access(s_exp, indent):
     array_value = compile_sexp(s_exp[1], 0)
     index = compile_sexp(s_exp[2], 0)
@@ -88,11 +95,13 @@ def compile_array_access(s_exp, indent):
     python_string = "%s[%s]" % (array_value, index)
     return emit_python(python_string, indent)
 
+
 def compile_make_tuple(s_exp, indent):
     arguments = [compile_sexp(argument, 0) for argument in s_exp[1:]]
 
     python_string = "(%s,)" % ", ".join(arguments)
     return emit_python(python_string, indent)
+
 
 def compile_attribute_access(s_exp, indent):
     symbol_type, attribute_name = s_exp[0]
@@ -105,6 +114,7 @@ def compile_attribute_access(s_exp, indent):
     python_string = "(%s)%s(%s)" % (target, attribute_name, ", ".join(arguments))
     return emit_python(python_string, indent)
 
+
 def compile_function_call(s_exp, indent):
     function_value = compile_sexp(s_exp[0], 0)
 
@@ -114,6 +124,7 @@ def compile_function_call(s_exp, indent):
 
     python_string = "%s(%s)" % (function_value, ", ".join(arguments))
     return emit_python(python_string, indent)
+
 
 def compile_sexp(s_exp, indent):
     if isinstance(s_exp, tuple):
@@ -149,12 +160,14 @@ def compile_sexp(s_exp, indent):
         
         raise CouldNotCompile(s_exp[0])
 
+
 def compile_symbol(symbol_tuple, indent):
     # this is value, not a statement, so indentation is usually
     # irrelevant as we're inserted on a line
     symbol_type, symbol = symbol_tuple
 
     return emit_python(symbol, indent)
+
 
 def lython_compile(python_string):
     tokens = list(lex(python_string))
@@ -164,7 +177,9 @@ def lython_compile(python_string):
 
     return "\n\n\n".join(compiled_sections)
 
+
 class CouldNotCompile(Exception): pass
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
