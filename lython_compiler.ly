@@ -66,14 +66,14 @@
      (= first_argument (compile_sexp (array_access s_exp 1) 0))
      (= second_argument (compile_sexp (array_access s_exp 2) 0))
 
-     (= python_string (% "%s %% %s" first_argument second_argument))
+     (= python_string (% "%s %% %s" (make_tuple first_argument second_argument)))
      (return (emit_python python_string indent)))
 
 (def compile_array_access (s_exp indent)
      (= array_access (compile_sexp (array_access s_exp 1) 0))
      (= index (compile_sexp (array_access s_exp 2) 0))
 
-     (= python_string (% "%s[%s]" array_access index))
+     (= python_string (% "%s[%s]" (make_tuple array_access index)))
      (return (emit_python python_string indent)))
 
 (def compile_make_tuple (s_exp indent)
@@ -92,8 +92,8 @@
          (= to_index (compile_sexp (array_access s_exp 3) 0)))
 
      (if to_index
-         (= python_string (% "%s[%s:%s]" sliced_value from_index to_index))
-       (= python_string (% "%s[%s:]" sliced_value from_index)))
+         (= python_string (% "%s[%s:%s]" (make_tuple sliced_value from_index to_index)))
+       (= python_string (% "%s[%s:]" (make_tuple sliced_value from_index))))
 
      (return (emit_python python_string indent)))
 
@@ -105,5 +105,5 @@
      (for raw_argument (slice s_exp 2)
           (.append arguments (compile_sexp raw_argument 0)))
 
-     (= python_string (% "(%s)%s(%s)" target attribute_name (.join ", " arguments)))
+     (= python_string (% "(%s)%s(%s)" (make_tuple target attribute_name (.join ", " arguments))))
      (return (emit_python python_string indent)))
