@@ -96,3 +96,14 @@
        (= python_string (% "%s[%s:]" sliced_value from_index)))
 
      (return (emit_python python_string indent)))
+
+(def compile_attribute_access (s_exp indent)
+     (= (make_tuple symbol_type attribute_name) (array_access s_exp 0))
+     (= target (compile_sexp (array_access s_exp 1) 0))
+
+     (= arguments (list))
+     (for raw_argument (slice s_exp 2)
+          (.append arguments (compile_sexp raw_argument 0)))
+
+     (= python_string (% "(%s)%s(%s)" target attribute_name (.join ", " arguments)))
+     (return (emit_python python_string indent)))
