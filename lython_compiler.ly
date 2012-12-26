@@ -40,3 +40,9 @@
 
      (return (emit_python python_string indent)))
 
+(def compile_return (s_exp indent)
+     (= python_string (% "return %s"
+                         (compile_sexp (array_access s_exp 1) 0)))
+
+     (return (emit_python python_string indent)))
+
