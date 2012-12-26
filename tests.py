@@ -46,6 +46,17 @@ class CompileTests(LythonTestCase):
         compiled_program = "if True:\n    if True:\n        foo()"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_if_else_nested(self):
+        program = "(if True (if True (foo) (bar)))"
+        compiled_program = """
+if True:
+    if True:
+        foo()
+    else:
+        bar()
+""".strip()
+        self.assertCompilesTo(program, compiled_program)
+
     def test_symbol(self):
         program = "(if True 1)"
         compiled_program = "if True:\n    1"
