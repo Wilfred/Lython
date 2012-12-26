@@ -82,3 +82,17 @@
           (.push arguments (% "(%s,)" (.join ", " arguments))))
 
      (return (emit_python python_string indent)))
+
+(def compile_slice (s_exp indent)
+     (= sliced_value (compile_sexp (array_access s_exp 1) 0))
+     (= from_index (compile_sexp (array_access s_exp 2) 0))
+
+     (= to_index None)
+     (if (== (len s_exp) 4)
+         (= to_index (compile_sexp (array_access s_exp 3) 0)))
+
+     (if to_index
+         (= python_string (% "%s[%s:%s]" sliced_value from_index to_index))
+       (= python_string (% "%s[%s:]" sliced_value from_index)))
+
+     (return (emit_python python_string indent)))
