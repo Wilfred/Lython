@@ -69,3 +69,9 @@
      (= python_string (% "%s %% %s" first_argument second_argument))
      (return (emit_python python_string indent)))
 
+(def compile_array_access (s_exp indent)
+     (= array_access (compile_sexp (array_access s_exp 1) 0))
+     (= index (compile_sexp (array_access s_exp 2) 0))
+
+     (= python_string (% "%s[%s]" array_access index))
+     (return (emit_python python_string indent)))
