@@ -9,6 +9,14 @@ def emit_python(python_string, indent):
     return TAB * indent + python_string
 
 
+def compile_symbol(symbol_tuple, indent):
+    # this is value, not a statement, so indentation is usually
+    # irrelevant as we're inserted on a line
+    symbol_type, symbol = symbol_tuple
+
+    return emit_python(symbol, indent)
+
+
 def compile_assignment(s_exp, indent):
     variable = compile_sexp(s_exp[1], 0)
     value = compile_sexp(s_exp[2], 0)
@@ -203,14 +211,6 @@ def compile_sexp(s_exp, indent):
             return compile_function_call(s_exp, indent)
         
         raise CouldNotCompile(s_exp[0])
-
-
-def compile_symbol(symbol_tuple, indent):
-    # this is value, not a statement, so indentation is usually
-    # irrelevant as we're inserted on a line
-    symbol_type, symbol = symbol_tuple
-
-    return emit_python(symbol, indent)
 
 
 def lython_compile(python_string):
