@@ -31,4 +31,12 @@
 
      (= python_string (% "def %s(%s):"
                          (make_tuple function_name (.join ", " argument_symbols))))
-     )
+
+     ;; the remaining list elements are statements in the function
+     (for statement (slice s_exp 3)
+          (= python_string (+ python_string
+                              "\n"
+                              (compile_sexp statement (+ indent 1)))))
+
+     (return (emit_python python_string indent)))
+
