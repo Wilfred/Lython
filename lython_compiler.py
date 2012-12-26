@@ -165,7 +165,7 @@ def compile_sexp(s_exp, indent):
 
     if symbol == '=':
         return compile_assignment(s_exp, indent)
-    if symbol == '==':
+    elif symbol == '==':
         return compile_equality(s_exp, indent)
     elif symbol == 'if':
         return compile_if(s_exp, indent)
