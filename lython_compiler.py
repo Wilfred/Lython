@@ -32,7 +32,7 @@ def compile_if(s_exp, indent):
     python_string += if_body
 
     if else_body:
-        python_string += "\nelse:\n"
+        python_string += "\n" + emit_python("else:\n", indent)
         python_string += else_body
 
     return emit_python(python_string, indent)
