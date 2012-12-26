@@ -169,4 +169,4 @@
 
      (return (.join "\n\n\n" compiled_sections)))
 
-
+(= CouldNotCompile (type "CouldNotCompile" (make_tuple Exception) (dict)))
