@@ -147,6 +147,11 @@ if True:
         compiled_program = "(bar).foo(x)"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_progn(self):
+        program = "(progn foo bar)"
+        compiled_program = "foo\nbar"
+        self.assertCompilesTo(program, compiled_program)
+
 
 class LexerTests(LythonTestCase):
     def test_comment(self):
