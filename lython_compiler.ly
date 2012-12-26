@@ -175,3 +175,13 @@
      (return (.join "\n\n\n" compiled_sections)))
 
 (= CouldNotCompile (type "CouldNotCompile" (make_tuple Exception) (dict)))
+
+(if (== __name__ "__main__")
+    (progn
+      (if (< (gettattr sys "argv") 2)
+          (progn
+            (print "Usage: python lython_compiler.py <source file name>")
+            (.exit sys 1)))
+
+      (= path (array_access (getattr sys "arg") 1))
+      (= program (.read (open path)))))
