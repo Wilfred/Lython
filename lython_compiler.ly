@@ -9,7 +9,7 @@
      (return (+ (* TAB indent) python_string)))
 
 (def compile_symbol (symbol_tuple indent)
-     (= (make_tuple symbol_type symbol_type) symbol_tuple)
+     (= (make_tuple symbol_type symbol) symbol_tuple)
      (return (emit_python symbol indent)))
 
 (def compile_assignment (s_exp indent)
