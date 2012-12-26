@@ -199,7 +199,7 @@
 
 (if (== __name__ "__main__")
     (progn
-      (if (< (getattr sys "argv") 2)
+      (if (< (len (getattr sys "argv")) 2)
           (progn
             (print "Usage: python lython_compiler.py <source file name>")
             (.exit sys 1)))
