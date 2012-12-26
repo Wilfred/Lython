@@ -165,13 +165,8 @@ def compile_slice(s_exp, indent):
     return emit_python(python_string, indent)
 
 def compile_progn(s_exp, indent):
-    python_string = ""
-
     compiled_statements = [compile_sexp(statement, indent) for statement in s_exp[1:]]
-    python_string = "\n".join(compiled_statements)
-
-    return emit_python(python_string, indent)
-
+    return "\n".join(compiled_statements)
 
 def compile_attribute_access(s_exp, indent):
     symbol_type, attribute_name = s_exp[0]
