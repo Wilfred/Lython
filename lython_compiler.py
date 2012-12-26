@@ -161,7 +161,8 @@ def lython_compile(python_string):
 
     s_exps = parse(tokens)
     compiled_sections = [compile_sexp(s_exp, 0) for s_exp in s_exps]
-    return "\n".join(compiled_sections)
+
+    return "\n\n\n".join(compiled_sections)
 
 class CouldNotCompile(Exception): pass
 
