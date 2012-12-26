@@ -71,6 +71,11 @@ class CompileTests(LythonTestCase):
         compiled_program = "2 % 3"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_equality(self):
+        program = "(== 2 3)"
+        compiled_program = "2 == 3"
+        self.assertCompilesTo(program, compiled_program)
+
     def test_array_access(self):
         program = "(array_access foo 1)"
         compiled_program = "foo[1]"
