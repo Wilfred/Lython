@@ -91,6 +91,16 @@ class CompileTests(LythonTestCase):
         compiled_program = "(foo, 1,)"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_slice_from(self):
+        program = "(slice foo 1)"
+        compiled_program = "foo[1:]"
+        self.assertCompilesTo(program, compiled_program)
+
+    def test_slice_from_to(self):
+        program = "(slice foo 1 2)"
+        compiled_program = "foo[1:2]"
+        self.assertCompilesTo(program, compiled_program)
+
     def test_function_call(self):
         program = "(foo 1 (+ 1 1))"
         compiled_program = "foo(1, 1 + 1)"

@@ -103,6 +103,22 @@ def compile_make_tuple(s_exp, indent):
     return emit_python(python_string, indent)
 
 
+def compile_slice(s_exp, indent):
+    sliced_value = compile_sexp(s_exp[1], 0)
+    from_index = compile_sexp(s_exp[2], 0)
+
+    to_index = None
+    if len(s_exp) == 4:
+        to_index = compile_sexp(s_exp[3], 0)
+
+    if to_index:
+        python_string = "%s[%s:%s]" % (sliced_value, from_index, to_index)
+    else:
+        python_string = "%s[%s:]" % (sliced_value, from_index)
+
+    return emit_python(python_string, indent)
+
+
 def compile_attribute_access(s_exp, indent):
     symbol_type, attribute_name = s_exp[0]
     target = compile_sexp(s_exp[1], 0)
@@ -152,6 +168,8 @@ def compile_sexp(s_exp, indent):
         return compile_array_access(s_exp, indent)
     elif symbol == 'make_tuple':
         return compile_make_tuple(s_exp, indent)
+    elif symbol == 'slice':
+        return compile_slice(s_exp, indent)
     elif symbol.startswith("."):
         return compile_attribute_access(s_exp, indent)
     else:
