@@ -46,3 +46,11 @@
 
      (return (emit_python python_string indent)))
 
+(def compile_add (s_exp indent)
+     (= arguments (list))
+     (for argument (slice s_exp 1)
+          (.push arguments (compile_sexp argument 0)))
+
+     (= python_string (.join " + " arguments))
+     (return (emit_python python_string indent)))
+
