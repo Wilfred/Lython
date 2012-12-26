@@ -36,6 +36,11 @@ class CompileTests(LythonTestCase):
         compiled_program = "if foo():\n    1"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_if_else(self):
+        program = "(if True (= x 1) (= x 2))"
+        compiled_program = "if True:\n    x = 1\nelse:\n    x = 2"
+        self.assertCompilesTo(program, compiled_program)
+
     def test_symbol(self):
         program = "(if True 1)"
         compiled_program = "if True:\n    1"

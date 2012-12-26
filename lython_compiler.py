@@ -19,14 +19,21 @@ def compile_assignment(s_exp, indent):
 
 
 def compile_if(s_exp, indent):
-    # currently not supporting else
     condition = compile_sexp(s_exp[1], 0)
 
     if_body = compile_sexp(s_exp[2], indent + 1)
 
+    else_body = None
+    if len(s_exp) == 4:
+        else_body = compile_sexp(s_exp[3], indent + 1)
+
     # question: should we support one line if statements?
     python_string = "if %s:\n" % condition
     python_string += if_body
+
+    if else_body:
+        python_string += "\nelse:\n"
+        python_string += else_body
 
     return emit_python(python_string, indent)
 
