@@ -107,3 +107,13 @@
 
      (= python_string (% "(%s)%s(%s)" (make_tuple target attribute_name (.join ", " arguments))))
      (return (emit_python python_string indent)))
+
+(def compile_function_call (s_exp indent)
+     (= function_value (compile_sexp (array_access s_exp 0) 0))
+
+     (= arguments (list))
+     (for raw_argument (slice s_exp 1)
+          (.append arguments (compile_sexp raw_argument 0)))
+
+     (= python_string (% "%s(%s)" (make_tuple function_value (.join ", " arguments))))
+     (return emit_python python_string indent))
