@@ -20,13 +20,22 @@
      (return (emit_python python_string indent)))
 
 (def compile_if (s_exp indent)
-     ;; currently not supporting else
      (= condition (compile_sexp (array_access s_exp 1) 0))
+
      (= if_body (compile_sexp (array_access s_exp 2) (+ indent 1)))
 
+     (= else_body None)
+     (if (== (len s_exp) 4)
+         (= else_body (compile_sexp (array_access s_exp 3))))
+     
      ;; question: should we support one line if statements?
      (= python_string (% "if %s\n" condition))
      (= python_string (+ python_string if_body))
+
+     (if else_body
+         (progn
+           (= python_string (+ python_string (emit_python "else:\n" indent)))
+           (= python_string (+ python_string else_body))))
 
      (return (emit_python python_string indent)))
 
