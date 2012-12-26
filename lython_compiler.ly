@@ -159,4 +159,14 @@
          (return compile_function_call s_exp indent)
        (raise (CouldNotCompile (array_access s_exp 0)))))
 
+(def lython_compile (python_string)
+     (= tokens (list (lex python_string)))
+
+     (= s_exps (parse tokens))
+     (= compiled_sections (list))
+     (for s_exp s_exps
+          (.append compiled_sections (compile_sexp s_exp 0)))
+
+     (return (.join "\n\n\n" compiled_sections)))
+
 
