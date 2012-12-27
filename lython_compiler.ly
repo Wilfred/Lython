@@ -56,8 +56,9 @@
      (= arguments (array_access s_exp 2))
 
      (= argument_symbols (list))
-     (for symbol arguments
-          (.append argument_symbols symbol))
+     (for argument arguments
+          (= (make_tuple argument_type symbol) argument)
+          (.append argument_symbols argument))
 
      (= python_string (% "def %s(%s):"
                          (make_tuple function_name (.join ", " argument_symbols))))
