@@ -100,6 +100,20 @@
      (= python_string (% "%s %% %s" (make_tuple first_argument second_argument)))
      (return (emit_python python_string indent)))
 
+(def compile_less_than (s_exp indent)
+     (= first_argument (compile_sexp (array_access s_exp 1) 0))
+     (= second_argument (compile_sexp (array_access s_exp 2) 0))
+
+     (= python_string (% "%s < %s" (make_tuple first_argument second_argument)))
+     (return (emit_python python_string indent)))
+
+(def compile_greater_than (s_exp indent)
+     (= first_argument (compile_sexp (array_access s_exp 1) 0))
+     (= second_argument (compile_sexp (array_access s_exp 2) 0))
+
+     (= python_string (% "%s > %s" (make_tuple first_argument second_argument)))
+     (return (emit_python python_string indent)))
+
 (def compile_equality (s_exp indent)
      (= first_argument (compile_sexp (array_access s_exp 1) 0))
      (= second_argument (compile_sexp (array_access s_exp 2) 0))
@@ -182,6 +196,10 @@
          (return (compile_multiply s_exp indent)))
      (if (== symbol "%")
          (return (compile_mod s_exp indent)))
+     (if (== symbol "<")
+         (return (compile_less_than s_exp indent)))
+     (if (== symbol ">")
+         (return (compile_greater_than s_exp indent)))
      (if (== symbol "array_access")
          (return (compile_array_access s_exp indent)))
      (if (== symbol "make_tuple")
