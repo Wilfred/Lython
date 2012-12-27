@@ -192,7 +192,7 @@
          (return (compile_attribute_access s_exp indent)))
 
      (if (== symbol_type (getattr lython_lexer "Variable"))
-         (return compile_function_call s_exp indent)
+         (return (compile_function_call s_exp indent))
        (raise (CouldNotCompile (array_access s_exp 0)))))
 
 (def lython_compile (python_string)
