@@ -26,7 +26,7 @@
 
      (= else_body None)
      (if (== (len s_exp) 4)
-         (= else_body (compile_sexp (array_access s_exp 3))))
+         (= else_body (compile_sexp (array_access s_exp 3) (+ indent 1))))
      
      ;; question: should we support one line if statements?
      (= python_string (% "if %s\n" condition))
