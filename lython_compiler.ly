@@ -151,6 +151,13 @@
 
      (return (emit_python python_string indent)))
 
+(def compile_progn (s_exp indent)
+     (= compiled_statements (list))
+     (for statement (slice s_exp 1)
+          (.append compiled_statements (compile_sexp statement indent)))
+
+     (return (.join "\n" compiled_statements)))
+
 (def compile_attribute_access (s_exp indent)
      (= (make_tuple symbol_type attribute_name) (array_access s_exp 0))
      (= target (compile_sexp (array_access s_exp 1) 0))
@@ -206,6 +213,8 @@
          (return (compile_make_tuple s_exp indent)))
      (if (== symbol "slice")
          (return (compile_slice s_exp indent)))
+     (if (== symbol "progn")
+         (return (compile_progn s_exp indent)))
      (if (.startswith symbol ".")
          (return (compile_attribute_access s_exp indent)))
 
