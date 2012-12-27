@@ -34,4 +34,4 @@ Relative readability of Python and Lython
 Conceptual effort of programming a Lython compiler in Lython and
 simultaneously using the same features.
 
-
+Lython feels more value oriented rather than expression oriented
