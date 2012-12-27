@@ -148,7 +148,7 @@
           (.append arguments (compile_sexp raw_argument 0)))
 
      (= python_string (% "%s(%s)" (make_tuple function_value (.join ", " arguments))))
-     (return emit_python python_string indent))
+     (return (emit_python python_string indent)))
 
 (def compile_sexp (s_exp indent)
      (if (isinstance s_exp tuple)
