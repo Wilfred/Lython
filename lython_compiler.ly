@@ -109,7 +109,9 @@
 (def compile_make_tuple (s_exp indent)
      (= arguments (list))
      (for argument (slice s_exp 1)
-          (.append arguments (% "(%s,)" (.join ", " arguments))))
+          (.append arguments (compile_sexp argument 0)))
+
+     (= python_string (% "(%s,)" (.join ", " arguments)))
 
      (return (emit_python python_string indent)))
 
