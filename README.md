@@ -9,7 +9,7 @@ Usage
 
 To run the bootstrap compiler:
 
-    $ python lython_compiler.py
+    $ python bootstrap_compiler.py
     
 To run the tests:
 
@@ -17,6 +17,6 @@ To run the tests:
 
 To run the self-hosting compiler:
 
-    $ python lython_compiler.py lython_compiler.ly > compiler.py # bootstrap
-    $ python compiler.py lython_compiler.ly # running on own source code
+    $ python bootstrap_compiler.py lython_compiler.ly > lython_compiler.py # bootstrap
+    $ python lython_compiler.py lython_compiler.ly # running on own source code
     

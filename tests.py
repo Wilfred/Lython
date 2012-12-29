@@ -1,8 +1,8 @@
 import unittest
 from unittest import TestCase
 
-from lython_compiler import lython_compile
-from lython_parser import ParsingError
+from bootstrap_compiler import lython_compile
+from bootstrap_parser import ParsingError
 
 
 class LythonTestCase(TestCase):

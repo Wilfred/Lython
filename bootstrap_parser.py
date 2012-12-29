@@ -1,4 +1,4 @@
-import lython_lexer
+import bootstrap_lexer
 
 class ParsingError(Exception): pass
 
@@ -9,9 +9,9 @@ def parse(tokens, top_level=True):
     while tokens:
         token_class, token = tokens.pop(0)
 
-        if token_class == lython_lexer.OpenParen:
+        if token_class == bootstrap_lexer.OpenParen:
             _list.append(parse(tokens, top_level=False))
-        elif token_class == lython_lexer.CloseParen:
+        elif token_class == bootstrap_lexer.CloseParen:
             if top_level:
                 raise ParsingError('Closing paren does not have matching open paren.')
             else:
