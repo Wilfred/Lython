@@ -29,7 +29,9 @@ the same code.
 
 Syntactic sugar
 
-Relative readability of Python and Lython
+Relative readability of Python and Lython -- no kwargs in Lython, %
+would work better as a 'format' function, no explicit 'else' in nested
+condidtionals (see the parser!)
 
 Conceptual effort of programming a Lython compiler in Lython and
 simultaneously using the same features.
