@@ -152,6 +152,11 @@ if True:
         compiled_program = "for x in y:\n    z"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_while_loop(self):
+        program = "(while x y)"
+        compiled_program = "while x:\n    y"
+        self.assertCompilesTo(program, compiled_program)
+
     def test_object_attribute(self):
         program = "(.foo bar x)"
         compiled_program = "(bar).foo(x)"

@@ -51,6 +51,13 @@
 
      (return (emit_python python_string indent)))
 
+(def compile_while (s_exp indent)
+     (= condition (compile_sexp (array_access s_exp 1) 0))
+     (= loop_body (compile_sexp (array_access s_exp 2) (+ indent 1)))
+
+     (= python_string (% "while %s:\n%s" (make_tuple condition loop_body)))
+     (return (emit_python python_string indent)))
+
 (def compile_def (s_exp indent)
      (= (make_tuple symbol_type function_name) (array_access s_exp 1))
      (= arguments (array_access s_exp 2))
@@ -193,6 +200,8 @@
          (return (compile_if s_exp indent)))
      (if (== symbol "for")
          (return (compile_for s_exp indent)))
+     (if (== symbol "while")
+         (return (compile_while s_exp indent)))
      (if (== symbol "def")
          (return (compile_def s_exp indent)))
      (if (== symbol "return")
