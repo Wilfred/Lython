@@ -182,6 +182,16 @@
      (= python_string (% "(not %s)" not_body))
      (return (emit_python python_string indent)))
 
+(def compile_and (s_exp indent)
+     (= arguments (list))
+
+     (for argument (slice s_exp 1)
+          (.append arguments (compile_sexp argument 0)))
+
+     (= joined_arguments (.join " and " arguments))
+     (= python_string (% "(%s)" joined_arguments))
+     (return (emit_python python_string indent)))
+
 (def compile_function_call (s_exp indent)
      (= function_value (compile_sexp (array_access s_exp 0) 0))
 

@@ -177,6 +177,13 @@ if True:
         compiled_program = "(not x)"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_and(self):
+        program = "(and x (not y))"
+        # there's superfluous bracketing here, but it guarantees that
+        # we can nest 'and' sexps
+        compiled_program = "(x and (not y))"
+        self.assertCompilesTo(program, compiled_program)
+
 
 class LexerTests(LythonTestCase):
     def test_comment(self):

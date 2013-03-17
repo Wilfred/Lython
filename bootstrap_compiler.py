@@ -185,6 +185,14 @@ def compile_not(s_exp, indent):
     return emit_python(python_string, indent)
 
 
+def compile_and(s_exp, indent):
+    arguments = [compile_sexp(argument, 0) for argument in s_exp[1:]]
+    joined_arguments = " and ".join(arguments)
+
+    python_string = "(%s)" % joined_arguments
+    return emit_python(python_string, indent)
+
+
 def compile_attribute_access(s_exp, indent):
     symbol_type, attribute_name = s_exp[0]
     target = compile_sexp(s_exp[1], 0)
@@ -250,6 +258,8 @@ def compile_sexp(s_exp, indent):
         return compile_progn(s_exp, indent)
     elif symbol == 'not':
         return compile_not(s_exp, indent)
+    elif symbol == 'and':
+        return compile_and(s_exp, indent)
     elif symbol.startswith("."):
         return compile_attribute_access(s_exp, indent)
     else:

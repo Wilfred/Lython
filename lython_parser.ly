@@ -6,7 +6,7 @@
      (= _list (list))
      (= saw_closing_paren False)
 
-     ;; need 'break' and 'not' and 'and'
+     ;; need 'break'
      (while tokens
        (progn
          (= (make_tuple token_class token (.pop tokens 0)))
