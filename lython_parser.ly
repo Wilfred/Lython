@@ -18,9 +18,9 @@
                  (progn
                    (= saw_closing_paren True)
                    (break)))
-             (.append _list (make_tuple token_class token))))
+             (.append _list (make_tuple token_class token))))))
 
          (if (and (not top_level) (not saw_closing_paren))
-             (raise (ParsingError "Open paren was not closed.")))
+           (raise (ParsingError "Open paren was not closed.")))
 
-         (return _list))))
+         (return _list))
