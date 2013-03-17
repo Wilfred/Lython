@@ -6,10 +6,9 @@
      (= _list (list))
      (= saw_closing_paren False)
 
-     ;; need 'break'
      (while tokens
        (progn
-         (= (make_tuple token_class token (.pop tokens 0)))
+         (= (make_tuple token_class token) (.pop tokens 0))
 
          (if (== token_class (getattr bootstrap_lexer "OpenParen"))
              (.append _list (parse tokens False))
@@ -19,7 +18,7 @@
                  (progn
                    (= saw_closing_paren True)
                    (break)))
-             (_list.append (make_tuple token_class token))))
+             (.append _list (make_tuple token_class token))))
 
          (if (and (not top_level) (not saw_closing_paren))
              (raise (ParsingError "Open paren was not closed.")))
