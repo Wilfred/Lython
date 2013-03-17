@@ -1,6 +1,6 @@
 ;; using __import__ saves us implementing `import` as a keyword
 (= sys (__import__ "sys"))
-(= bootstrap_parser (__import__ "bootstrap_parser"))
+(= lython_parser (__import__ "lython_parser"))
 (= bootstrap_lexer (__import__ "bootstrap_lexer"))
 
 (= TAB "   ")
@@ -255,7 +255,7 @@
 (def lython_compile (python_string)
      (= tokens (list (.lex bootstrap_lexer python_string)))
 
-     (= s_exps (.parse bootstrap_parser tokens))
+     (= s_exps (.parse lython_parser tokens True))
      (= compiled_sections (list))
      (for s_exp s_exps
           (.append compiled_sections (compile_sexp s_exp 0)))
