@@ -19,6 +19,7 @@ def compile_symbol(symbol_tuple, indent):
 
 
 def compile_assignment(s_exp, indent):
+    assert len(s_exp) == 3, "Expected two arguments to =, but got %s" % s_exp
     variable = compile_sexp(s_exp[1], 0)
     value = compile_sexp(s_exp[2], 0)
 
