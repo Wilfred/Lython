@@ -97,6 +97,7 @@ def compile_raise(s_exp, indent):
     return emit_python(python_string, indent)
 
 
+# fixme: this doesn't nest correctly with * /
 def compile_add(s_exp, indent):
     arguments = [compile_sexp(argument, 0) for argument in s_exp[1:]]
 
