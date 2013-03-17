@@ -176,6 +176,12 @@
      (= python_string (% "(%s)%s(%s)" (make_tuple target attribute_name (.join ", " arguments))))
      (return (emit_python python_string indent)))
 
+(def compile_not (s_exp indent)
+     (= not_body (compile_sexp (array_access s_exp 1) 0))
+     
+     (= python_string (% "(not %s)" not_body))
+     (return (emit_python python_string indent)))
+
 (def compile_function_call (s_exp indent)
      (= function_value (compile_sexp (array_access s_exp 0) 0))
 
@@ -224,6 +230,8 @@
          (return (compile_slice s_exp indent)))
      (if (== symbol "progn")
          (return (compile_progn s_exp indent)))
+     (if (== symbol "not")
+         (return (compile_not s_exp indent)))
      (if (.startswith symbol ".")
          (return (compile_attribute_access s_exp indent)))
 

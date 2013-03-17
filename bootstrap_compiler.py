@@ -177,6 +177,14 @@ def compile_progn(s_exp, indent):
     compiled_statements = [compile_sexp(statement, indent) for statement in s_exp[1:]]
     return "\n".join(compiled_statements)
 
+
+def compile_not(s_exp, indent):
+    not_body = compile_sexp(s_exp[1], 0)
+
+    python_string = "(not %s)" % not_body
+    return emit_python(python_string, indent)
+
+
 def compile_attribute_access(s_exp, indent):
     symbol_type, attribute_name = s_exp[0]
     target = compile_sexp(s_exp[1], 0)
@@ -240,6 +248,8 @@ def compile_sexp(s_exp, indent):
         return compile_slice(s_exp, indent)
     elif symbol == 'progn':
         return compile_progn(s_exp, indent)
+    elif symbol == 'not':
+        return compile_not(s_exp, indent)
     elif symbol.startswith("."):
         return compile_attribute_access(s_exp, indent)
     else:

@@ -172,6 +172,11 @@ if True:
         compiled_program = "if True:\n    foo\n    bar"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_not(self):
+        program = "(not x)"
+        compiled_program = "(not x)"
+        self.assertCompilesTo(program, compiled_program)
+
 
 class LexerTests(LythonTestCase):
     def test_comment(self):
