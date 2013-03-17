@@ -194,6 +194,10 @@ def compile_and(s_exp, indent):
     return emit_python(python_string, indent)
 
 
+def compile_break(s_exp, indent):
+    return emit_python("break", indent)
+
+
 def compile_attribute_access(s_exp, indent):
     symbol_type, attribute_name = s_exp[0]
     target = compile_sexp(s_exp[1], 0)
@@ -261,6 +265,8 @@ def compile_sexp(s_exp, indent):
         return compile_not(s_exp, indent)
     elif symbol == 'and':
         return compile_and(s_exp, indent)
+    elif symbol == 'break':
+        return compile_break(s_exp, indent)
     elif symbol.startswith("."):
         return compile_attribute_access(s_exp, indent)
     else:

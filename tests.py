@@ -184,6 +184,11 @@ if True:
         compiled_program = "(x and (not y))"
         self.assertCompilesTo(program, compiled_program)
 
+    def test_break(self):
+        program = "(break)"
+        compiled_program = "break"
+        self.assertCompilesTo(program, compiled_program)
+
 
 class LexerTests(LythonTestCase):
     def test_comment(self):

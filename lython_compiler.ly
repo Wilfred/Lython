@@ -192,6 +192,9 @@
      (= python_string (% "(%s)" joined_arguments))
      (return (emit_python python_string indent)))
 
+(def compile_break (s_exp indent)
+     (return (emit_python "break" indent)))
+
 (def compile_function_call (s_exp indent)
      (= function_value (compile_sexp (array_access s_exp 0) 0))
 
