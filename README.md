@@ -14,9 +14,14 @@ To run the bootstrap compiler:
 To run the tests:
 
     $ python tests.py
+    
+Boostrapping the compiler:
 
-To run the self-hosting compiler:
+    $ python bootstrap_compiler.py lython_parser.ly > lython_parser.py
+    $ python bootstrap_compiler.py lython_compiler.ly > lython_compiler.py
 
-    $ python bootstrap_compiler.py lython_compiler.ly > lython_compiler.py # bootstrap
-    $ python lython_compiler.py lython_compiler.ly # running on own source code
+To run compiler on its own code after bootstrapping:
+
+    $ python lython_compiler.py lython_parser.ly
+    $ python lython_compiler.py lython_compiler.ly
     
