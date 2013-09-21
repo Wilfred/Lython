@@ -18,7 +18,9 @@ class Number(Token):
     pattern = r"[0-9]+"
 
 class String(Token):
-    pattern = r"\".*?\""
+    # Either an empty string, or a double-quote delimeted sequence of
+    # characters that does not end with \
+    pattern = r'""|".*?[^\\]"'
 
 class OpenParen(Token):
     pattern = r"\("
