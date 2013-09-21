@@ -1,8 +1,26 @@
 Lython is a toy self-hosting Lisp to Python compiler.
 
-See lython_compiler.ly for sample code.
+Lython is just an experiment to create a Python dialect that uses a
+parentheses based syntax. Projects with similar goals exist,
+particularly [Hy](https://github.com/hylang/hy), which is a more
+serious Lisp to Python transpiler, and
+[MacroPy](https://github.com/lihaoyi/macropy), an implementation of
+Lisp macros in Python.
 
-TODOC: hello world example
+This project consists of a bootstrap compiler:
+
+* bootstrap_lexer.py
+* bootstrap_parser.py
+* bootstrap_compiler.py
+
+And a Lython compiler:
+
+* lython_lexer.py
+* lython_parser.py
+* lython_compiler.py
+
+The bootstrap compiler was written first, and is generally more
+readable. The two compilers are functionally equivalent.
 
 Usage
 -----
