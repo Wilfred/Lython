@@ -1,4 +1,4 @@
-(= bootstrap_lexer (__import__ "bootstrap_lexer"))
+(= lython_lexer (__import__ "lython_lexer"))
 
 (= ParsingError (type "ParsingError" (make_tuple Exception) (dict)))
 
@@ -10,9 +10,9 @@
        (progn
          (= (make_tuple token_class token) (.pop tokens 0))
 
-         (if (== token_class (getattr bootstrap_lexer "OpenParen"))
+         (if (== token_class (getattr lython_lexer "OpenParen"))
              (.append _list (parse tokens False))
-           (if (== token_class (getattr bootstrap_lexer "CloseParen"))
+           (if (== token_class (getattr lython_lexer "CloseParen"))
                (if top_level
                    (raise (ParsingError "Closing paren does not have matching open paren."))
                  (progn

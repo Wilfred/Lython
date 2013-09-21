@@ -17,11 +17,13 @@ To run the tests:
     
 Boostrapping the compiler:
 
+    $ python bootstrap_compiler.py lython_lexer.ly > lython_lexer.py
     $ python bootstrap_compiler.py lython_parser.ly > lython_parser.py
     $ python bootstrap_compiler.py lython_compiler.ly > lython_compiler.py
 
 To run compiler on its own code after bootstrapping:
 
+    $ python lython_compiler.py lython_lexer.ly
     $ python lython_compiler.py lython_parser.ly
     $ python lython_compiler.py lython_compiler.ly
     

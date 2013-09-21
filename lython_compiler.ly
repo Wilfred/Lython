@@ -1,7 +1,7 @@
 ;; using __import__ saves us implementing `import` as a keyword
 (= sys (__import__ "sys"))
 (= lython_parser (__import__ "lython_parser"))
-(= bootstrap_lexer (__import__ "bootstrap_lexer"))
+(= lython_lexer (__import__ "lython_lexer"))
 
 (= TAB "   ")
 
@@ -248,12 +248,12 @@
      (if (.startswith symbol ".")
          (return (compile_attribute_access s_exp indent)))
 
-     (if (== symbol_type (getattr bootstrap_lexer "Variable"))
+     (if (== symbol_type (getattr lython_lexer "Variable"))
          (return (compile_function_call s_exp indent))
        (raise (CouldNotCompile (array_access s_exp 0)))))
 
 (def lython_compile (python_string)
-     (= tokens (list (.lex bootstrap_lexer python_string)))
+     (= tokens (list (.lex lython_lexer python_string)))
 
      (= s_exps (.parse lython_parser tokens True))
      (= compiled_sections (list))
