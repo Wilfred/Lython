@@ -10,41 +10,41 @@
 
 (setattr Token "__init__" token_init)
 
-(= Whitespace (type "Token" (make_tuple object) (dict)))
+(= Whitespace (type "Whitespace" (make_tuple Token) (dict)))
 
 (setattr Whitespace "pattern" "\\s+")
 
-(= Variable (type "Token" (make_tuple object) (dict)))
+(= Variable (type "Variable" (make_tuple Token) (dict)))
 
 (setattr Variable "pattern" "\\.?[a-zA-Z_][a-zA-Z_0-9]*")
 
-(= Number (type "Token" (make_tuple object) (dict)))
+(= Number (type "Number" (make_tuple Token) (dict)))
 
 ;; yep, no support for floats or literals for other bases
 (setattr Number "pattern" "[0-9]+")
 
-(= String (type "Token" (make_tuple object) (dict)))
+(= String (type "String" (make_tuple Token) (dict)))
 
 ;; Either an empty string, or a double-quote delimeted sequence of
 ;; characters that does not end with \. This regexp is difficult to
 ;; read, see bootstrap_lexer.py for an equivalent readable version.
 (setattr String "pattern" "\"\"|\".*?[^\\\\]\"")
 
-(= OpenParen (type "Token" (make_tuple object) (dict)))
+(= OpenParen (type "OpenParen" (make_tuple Token) (dict)))
 
 (setattr OpenParen "pattern" "\\(")
 
-(= CloseParen (type "Token" (make_tuple object) (dict)))
+(= CloseParen (type "CloseParen" (make_tuple Token) (dict)))
 
 (setattr CloseParen "pattern" "\\)")
 
 ;; we define a separate token to stop users overwriting these
 ;; todo: check the Python language spec
-(= BuiltIn (type "Token" (make_tuple object) (dict)))
+(= BuiltIn (type "BuiltIn" (make_tuple Token) (dict)))
 
 (setattr BuiltIn "pattern" "\\+|\\*|-|/|==|=|<|>|%")
 
-(= Comment (type "Token" (make_tuple object) (dict)))
+(= Comment (type "Comment" (make_tuple Token) (dict)))
 
 (setattr Comment "pattern" ";.*")
 
