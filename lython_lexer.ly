@@ -47,3 +47,34 @@
 (= Comment (type "Token" (make_tuple object) (dict)))
 
 (setattr Comment "pattern" ";.*")
+
+(def _tokenise (string)
+     (= tokens (list))
+
+     (while string
+       (progn
+         (= found_match False)
+         (for token_class (.__subclasses__ Token)
+              (progn
+                (= match (.match re (getattr token_class "pattern")
+                                 string))
+                (if match
+                    (progn
+                      (if (not (== token_class Comment))
+                          (.append tokens (make_tuple token_class (.group match 0))))
+                      (= string (slice string (.end match)))
+                      (= found_match True)
+                      (break)))))
+         (if (not found_match)
+             ;; if we reach this point, we haven't found any token that
+             ;; matches this string
+             (raise (LexingError (% "Could not lex remaining: \"%s\"" string))))))
+     (return tokens))
+
+(def lex (string)
+     (for token_type_with_token  (_tokenise string)
+          (progn
+            (= token_type (array_access token_type_with_token 0))
+            (if (and (not (== token_type Whitespace)) (not (== token_type Comment)))
+                (yield token_type_with_token)))))
+
