@@ -38,6 +38,12 @@
 
 (setattr CloseParen "pattern" "\\)")
 
+;; we define a separate token to stop users overwriting these
+;; todo: check the Python language spec
 (= BuiltIn (type "Token" (make_tuple object) (dict)))
 
 (setattr BuiltIn "pattern" "\\+|\\*|-|/|==|=|<|>|%")
+
+(= Comment (type "Token" (make_tuple object) (dict)))
+
+(setattr Comment "pattern" ";.*")
