@@ -25,7 +25,7 @@ readable. The two compilers are functionally equivalent.
 Usage
 -----
 
-To run the bootstrap compiler:
+To run the bootstrap compiler (assumes Python 2):
 
     $ python bootstrap_compiler.py
     
