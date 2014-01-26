@@ -19,10 +19,10 @@ surprise then that the output of the CoffeeScript compiler is often
 readable JavaScript.
 
 To illustrate this distinction, I decided to build a Lisp compiler
-that targeted Python (sometimes called a 'transpiler'), a language whose semantics I was very familiar
-with. To make things interesting, I decided the compiler should be
-self-hosting, so my 'Lython' compiler should be able to compile
-itself.
+that targeted Python (sometimes called a 'transpiler'), a language
+whose semantics I was very familiar with. To make things interesting,
+I decided the compiler should be self-hosting, so my 'Lython' compiler
+should be able to compile itself.
 
 I built a bootstrap compiler in Python, then wrote a Lython version of
 the same code. This is an entertaining recursive development process,
@@ -85,11 +85,17 @@ of a useful language: error checking, unit tests, documentation, and a
 reason for being.
 
 As a Python dialect, it shows some parts of Python are not well suited
-for lisp syntax. Python has a variety of infix operators (`+`, `%`)
+for lisp syntax.
+
+Python has a variety of infix operators (`+`, `%`)
 and postfix operators (array access, slicing) that become less elegant
 with a uniform prefix syntax. For example, I would find
 `(format "hello %s" name)` more readable than Lython's
 `(% "hello %s" name)`.
+
+Similarly, Lython also highlights how not all expressions
+in Python return a value. The following code is not value Python, but
+would benefit 
 
 ---
 
